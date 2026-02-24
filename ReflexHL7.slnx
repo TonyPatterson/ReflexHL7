@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/Generated Code/">
+    <File Path="ReflexHL7.TestProject/obj/Debug/net8.0/generated/ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.HL7ClassGenerator/ReflexHL7.GeneratedReader.HL7_NTE.g.cs" />
+    <File Path="ReflexHL7.TestProject/obj/Debug/net8.0/generated/ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.HL7ClassGenerator/ReflexHL7.GeneratedReader.HL7_OBR.g.cs" />
+    <File Path="ReflexHL7.TestProject/obj/Debug/net8.0/generated/ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.HL7ClassGenerator/ReflexHL7.GeneratedReader.HL7_OBX.g.cs" />
+    <File Path="ReflexHL7.TestProject/obj/Debug/net8.0/generated/ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.HL7ClassGenerator/ReflexHL7.GeneratedReader.HL7_ORU.g.cs" />
+    <File Path="ReflexHL7.TestProject/obj/Debug/net8.0/generated/ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.HL7ClassGenerator/ReflexHL7.GeneratedReader.HL7_PID.g.cs" />
+    <File Path="ReflexHL7.TestProject/obj/Debug/net8.0/generated/ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.HL7ClassGenerator/ReflexHL7.GeneratedReader.HL7_XPN.g.cs" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/workflows/TestAndPublish.yml" />
+    <File Path=".gitignore" />
+    <File Path="build-nuget.ps1" />
+    <File Path="ReflexHL7.nuspec" />
+    <File Path="publish-version.txt" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="ReflexHL7.Benchmark/ReflexHL7.Benchmark.csproj" />
+  <Project Path="ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.csproj" />
+  <Project Path="ReflexHL7.Tests/ReflexHL7.Tests.csproj" />
+  <Project Path="ReflexHL7/ReflexHL7.csproj" />
+  <Project Path="ReflexHL7.TestProject/ReflexHL7.TestProject.csproj" />
+</Solution>

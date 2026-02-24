@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+	<metadata>
+		<id>ReflexHL7</id>
+		<authors>Tony Patterson</authors>
+		<owners>Tony Patterson</owners>
+		<version>$PackageVersion$</version>
+		<copyright>$PackageCopyright$</copyright>
+		<icon>docs\PackageIcon.png</icon>
+		<readme>docs\README.md</readme>
+		<license type="expression">MIT</license>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Lightweight reader for HL7 (V2) files.</description>
+		<language>en-GB</language>
+		<tags>Health HL7 Healthcare Interoperability Source Generator</tags>
+		<repository type="git" url="$RepositoryUrl$" branch="$RepositoryBranch$" commit="$RepositoryCommitId$" />
+		<dependencies>
+			<group targetFramework="net8.0">
+				<dependency id="System.IO" version="4.3.0" exclude="Build,Analyzers" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="ReflexHL7.CodeGenerator\bin\Release\netstandard2.0\ReflexHL7.CodeGenerator.dll" target="analyzers\dotnet\cs\ReflexHL7.CodeGenerator.dll" />
+		<file src="ReflexHL7.CodeGenerator\bin\Release\netstandard2.0\ReflexHL7.CodeGenerator.pdb" target="analyzers\dotnet\cs\ReflexHL7.CodeGenerator.pdb" />
+		<file src="ReflexHL7\bin\Release\net8.0\ReflexHL7.dll" target="lib\net8.0\ReflexHL7.dll" />
+		<file src="ReflexHL7\bin\Release\net8.0\ReflexHL7.pdb" target="lib\net8.0\ReflexHL7.pdb" />
+		<file src="PackageIcon.png" target="docs\PackageIcon.png" />
+		<file src="README.md" target="docs\README.md" />
+	</files>
+</package>

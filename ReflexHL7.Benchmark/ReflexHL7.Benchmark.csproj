@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	<Version>$(PackageVersion)</Version>
+	<AssemblyVersion>$(PackageVersion)</AssemblyVersion>
+	<RepositoryCommitId>$(RepositoryCommitId)</RepositoryCommitId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReflexHL7.TestProject\ReflexHL7.TestProject.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\MDM_T02.hl7">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\ORU_R01.hl7">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

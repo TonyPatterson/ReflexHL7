@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Build Test Project": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\ReflexHL7.TestProject\\ReflexHL7.TestProject.csproj"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# The package version is driven from this file. Set the first
+# non-comment, non-empty line to the version. Whenever a commit
+# changes this file, a new nuget will be published.
+
+0.7.20-alpha

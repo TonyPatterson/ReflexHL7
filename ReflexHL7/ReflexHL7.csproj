@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>Latest</LangVersion>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<Version>$(PackageVersionNoSuffix)</Version>
+		<AssemblyVersion>$(PackageVersionNoSuffix)</AssemblyVersion>
+		<ProductVersion>$(PackageVersionNoSuffix)</ProductVersion>
+		<Copyright>$(PackageCopyright)</Copyright>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.IO" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ReflexHL7.CodeGenerator\ReflexHL7.CodeGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+</Project>

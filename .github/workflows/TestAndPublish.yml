@@ -1,0 +1,60 @@
+﻿# For more information on GitHub Actions, refer to https://github.com/features/actions
+
+name: Test And Publish
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-and-publish:
+    permissions:
+      contents: read
+      id-token: write
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build
+        run: "& ./build-nuget.ps1"
+        shell: pwsh
+        env:
+          BuildConfiguration: ${{ matrix.configuration }}
+          GitRef: ${{ github.ref }}
+        id: ngpublish
+
+      - name: Publish
+        uses: actions/upload-artifact@v4
+        if: ${{ steps.ngpublish.outputs.ngfilename != '' }}
+        with:
+          name: ReflexHL7.nupkg
+          path: ${{ steps.ngpublish.outputs.ngfilename}}
+          retention-days: 2
+
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        if: ${{ steps.ngpublish.outputs.ngfilename != '' }}
+        with:
+          user: TonyPatterson
+
+      - name: Push to NuGet
+        shell: pwsh
+        if: ${{ steps.ngpublish.outputs.ngfilename != '' }}
+        run: dotnet nuget push ${{ steps.ngpublish.outputs.ngfilename}} --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
