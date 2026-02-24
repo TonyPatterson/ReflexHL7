@@ -46,14 +46,16 @@ $copyright = "Copyright (C) " + $nuspec.package.metadata.owners + " " + $current
 
 $ngfilename = "publish\" + $nuspec.package.metadata.id + "." + $versionNumber + ".nupkg"
 
-Write-Host "ngfilename=$ngfilename" >> $env:GITHUB_OUTPUT
-
 # Run the nuget pack command
 dotnet clean
 dotnet build --configuration $env:BuildConfiguration /p:PackageVersionNoSuffix=$versionNumberNoSuffix /p:PackageCopyright=$copyright
 dotnet pack $nuspecPath --configuration $env:BuildConfiguration --output $outputDirectory /p:PackageVersion=$versionNumber /p:RepositoryUrl=$repoUrl /p:RepositoryBranch=$repoBranch /p:RepositoryCommitId=$commitId /p:PackageCopyright=$copyright
 
-if ($LASTEXITCODE -ne 0) {
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "ngfilename=$ngfilename" >> $env:GITHUB_OUTPUT
+
+    Write-Host "Publishing output to $ngfilename"
+} else {
     Write-Host "Failed in dotnet pack"
     exit 1
 }

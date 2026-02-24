@@ -2,4 +2,4 @@
 # non-comment, non-empty line to the version. Whenever a commit
 # changes this file, a new nuget will be published.
 
-0.1.1-alpha
+0.1.2-alpha

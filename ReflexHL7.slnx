@@ -15,6 +15,7 @@
     <File Path="ReflexHL7.nuspec" />
     <File Path="publish-version.txt" />
     <File Path="README.md" />
+    <File Path="test-build-nuget.ps1" />
   </Folder>
   <Project Path="ReflexHL7.Benchmark/ReflexHL7.Benchmark.csproj" />
   <Project Path="ReflexHL7.CodeGenerator/ReflexHL7.CodeGenerator.csproj" />
