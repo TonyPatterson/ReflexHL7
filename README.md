@@ -128,6 +128,15 @@ map properties should either be marked with `HL7FieldDefinition` or should
 correctly read a complete field in its `<PropertyClass> Read(HL7Tokeniser tokeniser)`
 method.
 
+# HL7 Standard Support
+This is not a complete HL7 implementation and the following are either unsupported
+or partially supported:
+
+* **Continuation messages** These are not currently supported.
+* **Message writing** Message writing is not supported. If it is supported in future, the support may not include full round-trip capabilities.
+* **Formatting codes** These can be read, but are not interpeted in any way. This could be implemented as an extension to the library in future. For now, consumers will need to parse formatting codes themselves.
+* **Full schema definition** It is not the intent of the library to provide full implementations of all HL7 messages, although this could be supported by an ancillary library in the future.
+
 # Development
 
 ## Code Generation Updates
