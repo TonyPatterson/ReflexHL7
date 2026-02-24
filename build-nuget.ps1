@@ -48,7 +48,7 @@ dotnet build --configuration $env:BuildConfiguration /p:PackageVersionNoSuffix=$
 dotnet pack $nuspecPath --configuration $env:BuildConfiguration --output $outputDirectory /p:PackageVersion=$versionNumber /p:RepositoryUrl=$repoUrl /p:RepositoryBranch=$repoBranch /p:RepositoryCommitId=$commitId /p:PackageCopyright=$copyright
 
 if ($LASTEXITCODE -eq 0) {
-    $env:GITHUB_OUTPUT += "ngfilename=$ngfilename`n"
+    Add-Content -Path $env:GITHUB_OUTPUT -Value "ngfilename=$ngfilename"
 
     Write-Host "Publishing output to $ngfilename"
 } else {
