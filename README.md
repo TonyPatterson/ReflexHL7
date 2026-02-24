@@ -48,7 +48,7 @@ public partial class HL7_VanillaMessage
     public required HL7_PID_Minimal PID { get; init; }
 }
 
-[HL7SegmentDefinition]
+[HL7SegmentDefinition("PID")]
 public partial class HL7_PID_Minimal
 {
     [HL7Field(18)]
@@ -60,6 +60,10 @@ In this program, we first open a stream to an input file containing our
 message. We then call the static Read method on the message type that
 we have defined using the two classes below. We then have straightforward
 access to the properties loaded from the file, through those classes.
+
+*Note that this example assumes that the message contains a PID segment
+immediately after the MSH segment. If that is not the case, the number
+will not be read. A more complete message definition would be needed.*
 
 In this simple example we have only mapped out a single property of
 interest, but it is possible to map out every property at every level of
