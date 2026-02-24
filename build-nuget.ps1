@@ -12,8 +12,6 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 if ($env:BuildConfiguration -ne 'Release') {
-    Write-Host "ngfilename=" >> $env:GITHUB_OUTPUT
-
     Write-Host "Exiting without publishing, because not a Release build"
 
     exit 0
@@ -23,8 +21,6 @@ if ($env:BuildConfiguration -ne 'Release') {
 $publish = git show --name-only --pretty="" HEAD | Where-Object { $_ -like $publishVersion }
 
 if (-not $publish) {
-    Write-Host "ngfilename=" >> $env:GITHUB_OUTPUT
-
     Write-Host "Exiting without publishing, because publish-version file has not been changed"
 
     exit 0
@@ -52,7 +48,7 @@ dotnet build --configuration $env:BuildConfiguration /p:PackageVersionNoSuffix=$
 dotnet pack $nuspecPath --configuration $env:BuildConfiguration --output $outputDirectory /p:PackageVersion=$versionNumber /p:RepositoryUrl=$repoUrl /p:RepositoryBranch=$repoBranch /p:RepositoryCommitId=$commitId /p:PackageCopyright=$copyright
 
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "ngfilename=$ngfilename" >> $env:GITHUB_OUTPUT
+    $env:GITHUB_OUTPUT += "ngfilename=$ngfilename`n"
 
     Write-Host "Publishing output to $ngfilename"
 } else {
