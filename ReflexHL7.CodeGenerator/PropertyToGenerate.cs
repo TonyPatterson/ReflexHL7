@@ -25,15 +25,11 @@ internal class PropertyToGenerate(
             if (IsFieldMappedToCollection)
             {
                 // The HL7 Field attribute IsCollection has been used
-                string s = propertyType.ToString();
+                if (propertyType is IArrayTypeSymbol ats)
+                    return ats.ElementType.ToString();
 
-                if (s.EndsWith("?"))
-                    s = s.Substring(0, s.Length - 1);
-
-                if (s.EndsWith("[]"))
-                    s = s.Substring(0, s.Length - 2);
-
-                return s;
+                if (propertyType is INamedTypeSymbol nts && nts.ConstructedFrom.ToString() == "System.Collections.Generic.IReadOnlyList<T>")
+                    return nts.TypeArguments[0].ToString();
             }
 
             return propertyType.ToString();

@@ -1,5 +1,4 @@
-﻿using ReflexHL7;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace ReflexHL7.TestProject.HL7Examples.Schema;
 
@@ -8,7 +7,7 @@ namespace ReflexHL7.TestProject.HL7Examples.Schema;
 public partial class HL7_OBX
 {
     [HL7Field(1)]
-    public required string SetId { get; init; }
+    public int SetId { get; init; }
 
     [HL7Field(2)]
     public string? ValueTypeId { get; init; }

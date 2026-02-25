@@ -8,7 +8,7 @@ namespace ReflexHL7.TestProject.HL7Examples.Schema;
 public partial class HL7_OBR
 {
     [HL7Field(1)]
-    public string? SetId { get; init; }
+    public int SetId { get; init; }
 
     [HL7Field(2)]
     public string? PlacerOrderNumber { get; init; }

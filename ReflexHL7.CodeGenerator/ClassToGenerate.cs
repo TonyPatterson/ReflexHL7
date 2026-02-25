@@ -92,41 +92,45 @@ internal record ClassToGenerate(
 
     private void AddSingleRead(CodeStringBuilder csb, PropertyToGenerate prop, string assign)
     {
-        if (prop.BasePropertyType.IndexOf("IReadOnlyList") >= 0)
-            throw new NotSupportedException("IReadOnlyList is not yet supported as a property type.");
-
-        switch (prop.BasePropertyType)
+        switch (prop.BasePropertyType.Replace("?", ""))
         {
             case "byte[]":
-            case "byte[]?":
                 csb.AppendLine($"{assign}Convert.FromBase64String(tokeniser.{Characteristics.ReadThis}());");
                 break;
 
-            case "string?[]?":
-            case "string[]?":
-            case "string?[]":
             case "string[]":
+            case "System.Collections.Generic.IReadOnlyList<string>":
                 csb.AppendLine($"{assign}tokeniser.{Characteristics.ReadSubs}().ToArray();");
                 break;
 
-            case "ReflexHL7.HL7_DTM?":
+            case "int":
+                csb.AppendLine($"{assign}int.Parse(tokeniser.{Characteristics.ReadThis}());");
+                break;
+
+            case "decimal":
+                csb.AppendLine($"{assign}decimal.Parse(tokeniser.{Characteristics.ReadThis}());");
+                break;
+
+            case "float":
+                csb.AppendLine($"{assign}float.Parse(tokeniser.{Characteristics.ReadThis}());");
+                break;
+
+            case "double":
+                csb.AppendLine($"{assign}double.Parse(tokeniser.{Characteristics.ReadThis}());");
+                break;
+
             case "ReflexHL7.HL7_DTM":
                 csb.AppendLine($"{assign}ReflexHL7.HL7_DTM.Read(tokeniser.{Characteristics.ReadThis}());");
                 break;
 
-            case "ReflexHL7.HL7String?":
             case "ReflexHL7.HL7String":
                 csb.AppendLine($"{assign}new ReflexHL7.HL7String(tokeniser, tokeniser.{Characteristics.ReadThis}());");
                 break;
 
-            case "ReflexHL7.HL7String[]?":
-            case "ReflexHL7.HL7String?[]":
-            case "ReflexHL7.HL7String?[]?":
             case "ReflexHL7.HL7String[]":
                 throw new NotSupportedException("Collections of ReflexHL7.HL7String are not yet supported.");
 
             case "string":
-            case "string?":
                 csb.AppendLine($"{assign}tokeniser.{Characteristics.ReadThis}();");
                 break;
 

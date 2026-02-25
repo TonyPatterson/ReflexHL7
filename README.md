@@ -82,7 +82,8 @@ To create a mapping class, it is necessary to do three things:
    the code generator which classes you wish to create `Read` methods for.
 3. Add properties with property mapping attributes.
 
-The following table shows what attributes should be used for mapping the different HL7 entities.
+The following table shows what attributes should be used for mapping the
+different HL7 entities.
 
 | HL7 Entity | Definition Attribute   | Field Mapping Attribute |
 | ---------- | ---------------------- | ----------------------- |
@@ -104,6 +105,12 @@ strings as the HL7 content is not usually guaranteed to be set. When
 using a string, the field content is used directly, without processing
 escapes or formatting characters.
 
+### int, float, double, decimal
+
+When these numeric types are specified, the field content is interpreted
+as a number. If the content cannot be parsed as a number, an exception will
+be thrown.
+
 ### HL7String
 
 When an `HL7String` is specified, the field content is interpreted as a
@@ -119,6 +126,31 @@ highlighting and truncation.
 When an entity has distinct sub-entities you can use an `IReadOnlyList<T>`
 to get them all as a collection. The list is guaranteed to be non-null, but
 it may be empty. It will not contain null strings.
+
+Components, Fields and SubComponents can set the `IsCollection` property
+on their respective field mapping attributes. This directs the code
+generator to interpret the field as a collection, separated by the
+*repetition separator*, rather than a structured component. For example,
+a field with content:
+
+```
+a~b~c
+```
+
+mapped to a
+
+```
+IReadOnlyList<string>
+```
+
+would yield an array with a single string entry `a~b~c`. With `IsCollection`
+set to true, it would yield the array `[a, b, c]`. The content:
+
+```
+a^b^c
+```
+
+for the same field would yield three components for a, b and c. TODO - test outcomes ################
 
 ### HL7_DTM
 

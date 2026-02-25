@@ -1,6 +1,4 @@
-﻿using ReflexHL7;
-
-namespace ReflexHL7.TestProject.HL7Examples.Schema;
+﻿namespace ReflexHL7.TestProject.HL7Examples.Schema;
 
 [HL7FieldDefinition]
 public partial class HL7_XPN
