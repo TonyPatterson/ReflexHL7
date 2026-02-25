@@ -4,15 +4,14 @@ This is a .Net Source Code Generator developed to read
 [HL7 V2](http://www.hl7.org/implement/standards/product_section.cfm?section=13)
 (Health Level 7 Version 2 messaging standard).
 
-The generator is a light weight way of building HL7 V2 parsing in to a .Net
+The generator is a lightweight way of building HL7 V2 parsing in to a .Net
 application by helping clients define classes which map to HL7 messages and
 their components. This allows clients to create streamlined parsers which
-only read messages and fields of interest, giving the resulting code a low
-memory footprint, high performance and low memory demands.
+only read messages and fields of interest, giving the resulting code low
+memory demands and high performance.
 
-It also means that the POCO classes generated are easily shared throughout
-the client system without having to first be translated in to more
-manageable classes.
+It also means that the POCO classes generated are easily used by the client
+system without having to first be translated in to more manageable classes.
 
 ## Build Status
 
@@ -87,7 +86,7 @@ The following table shows what attributes should be used for mapping the differe
 
 | HL7 Entity | Definition Attribute   | Field Mapping Attribute |
 | ---------- | ---------------------- | ----------------------- |
-| Message    | HL7Message             | HL7Segment              |
+| Message    | HL7MessageDefinition   | HL7Segment              |
 | Segment    | HL7SegmentDefinition   | HL7Field                |
 | Field      | HL7FieldDefinition     | HL7Component            |
 | Component  | HL7ComponentDefinition | HL7SubComponent         |
@@ -101,11 +100,23 @@ be defined for:
 
 The simplest target is a string which will be loaded with the complete
 content of the source entity. It is recommended that you use nullable
-strings as the HL7 content is not usually guaranteed to be set.
+strings as the HL7 content is not usually guaranteed to be set. When
+using a string, the field content is used directly, without processing
+escapes or formatting characters.
 
-### IReadOnlyList<string>
+### HL7String
 
-When an entity has distinct sub-entities you can use an `IReadOnlyList<string>`
+When an `HL7String` is specified, the field content is interpreted as a
+string, but simple escape sequences are converted to their intended
+characters and other escapes are stored within the object. The object
+created is a collection of `HL7StringComponent` objects which define
+the type of escape (or content) and the content. It is up to the client
+application to handle character set escapes, formatting characters,
+highlighting and truncation.
+
+### IReadOnlyList<T>
+
+When an entity has distinct sub-entities you can use an `IReadOnlyList<T>`
 to get them all as a collection. The list is guaranteed to be non-null, but
 it may be empty. It will not contain null strings.
 
@@ -132,13 +143,13 @@ map properties should either be marked with `HL7FieldDefinition` or should
 correctly read a complete field in its `<PropertyClass> Read(HL7Tokeniser tokeniser)`
 method.
 
-# HL7 Standard Support
+# Support for the HL7 Standard
 This is not a complete HL7 implementation and the following are either unsupported
 or partially supported:
 
 * **Continuation messages** These are not currently supported.
 * **Message writing** Message writing is not supported. If it is supported in future, the support may not include full round-trip capabilities.
-* **Formatting codes** These can be read, but are not interpeted in any way. This could be implemented as an extension to the library in future. For now, consumers will need to parse formatting codes themselves.
+* **Formatting codes** These can be read and parsed, but are not interpeted in any way. Due to the various types of escapes in HL7 text content, there is no obvious canonical solution.
 * **Full schema definition** It is not the intent of the library to provide full implementations of all HL7 messages, although this could be supported by an ancillary library in the future.
 
 # Development
