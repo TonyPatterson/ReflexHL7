@@ -78,7 +78,7 @@ To create a mapping class, it is necessary to do three things:
 1. Mark the class as `public` and `partial`. It is necessary to do this
    so the code generator can add the additional methods
    `<MappingClass> Read(HL7Tokeniser tokeniser)` and
-   `<MappingClass> Read(System.IO.StreamReader s)` in the generated code.
+   `<MappingClass> Read(System.IO.TextReader s)` in the generated code.
 2. Add the HL7 definition attribute to your class. This attribute tells
    the code generator which classes you wish to create `Read` methods for.
 3. Add properties with property mapping attributes.

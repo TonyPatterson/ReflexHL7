@@ -111,7 +111,7 @@ internal record MessageClassToGenerate(
         csb.AppendLine("/// <param name=\"s\">The stream to read the message from.");
         csb.AppendLine("/// </param>");
         csb.AppendLine("/// <returns>The parsed HL7 V2 object or null if not available.</returns>");
-        csb.AppendLine($"public static {NamespaceName}.{Name} Read(System.IO.StreamReader s)");
+        csb.AppendLine($"public static {NamespaceName}.{Name} Read(System.IO.TextReader s)");
         csb.AppendLine("{");
         csb.Indent();
         csb.AppendLine("return Read(new ReflexHL7.HL7Tokeniser(s));");
