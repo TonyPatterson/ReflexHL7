@@ -92,7 +92,11 @@ internal record ClassToGenerate(
 
     private void AddSingleRead(CodeStringBuilder csb, PropertyToGenerate prop, string assign)
     {
-        switch (prop.BasePropertyType.Replace("?", ""))
+        string basePropertyType = prop.BasePropertyType;
+
+        string basePropertyTypeWithoutNullablity = basePropertyType.Replace("?", "");
+
+        switch (basePropertyTypeWithoutNullablity)
         {
             case "byte[]":
                 csb.AppendLine($"{assign}Convert.FromBase64String(tokeniser.{Characteristics.ReadThis}());");
@@ -104,19 +108,15 @@ internal record ClassToGenerate(
                 break;
 
             case "int":
-                csb.AppendLine($"{assign}int.Parse(tokeniser.{Characteristics.ReadThis}());");
-                break;
-
             case "decimal":
-                csb.AppendLine($"{assign}decimal.Parse(tokeniser.{Characteristics.ReadThis}());");
-                break;
-
             case "float":
-                csb.AppendLine($"{assign}float.Parse(tokeniser.{Characteristics.ReadThis}());");
-                break;
-
             case "double":
-                csb.AppendLine($"{assign}double.Parse(tokeniser.{Characteristics.ReadThis}());");
+                string readThis = Characteristics.ReadThis;
+
+                if (basePropertyType == basePropertyTypeWithoutNullablity + '?')
+                    csb.AppendLine($"{assign}HL7Tokeniser.ParseNullable{Capitalise(basePropertyTypeWithoutNullablity)}(tokeniser.{readThis}());");
+                else
+                    csb.AppendLine($"{assign}{basePropertyType}.Parse(tokeniser.{readThis}());");
                 break;
 
             case "ReflexHL7.HL7_DTM":
@@ -138,6 +138,9 @@ internal record ClassToGenerate(
                 csb.AppendLine($"{assign}{prop.BasePropertyType.Replace("?", string.Empty)}.Read(tokeniser);");
                 break;
         }
+
+        static string Capitalise(string basePropertyType) => 
+            char.ToUpperInvariant(basePropertyType[0]) + basePropertyType.Substring(1);
     }
 
     private void AddCollectionRead(CodeStringBuilder csb, PropertyToGenerate prop, string assign)

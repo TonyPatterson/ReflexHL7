@@ -133,6 +133,14 @@ public class HL7Tokeniser
         _msh = HL7_MSH.Read(this, buffer.Slice(4, 4).ToString());
     }
 
+    public static int? ParseNullableInt(string s) => string.IsNullOrEmpty(s) ? null : int.Parse(s);
+
+    public static decimal? ParseNullableDecimal(string s) => string.IsNullOrEmpty(s) ? null : decimal.Parse(s);
+
+    public static float? ParseNullableFloat(string s) => string.IsNullOrEmpty(s) ? null : float.Parse(s);
+
+    public static double? ParseNullableDouble(string s) => string.IsNullOrEmpty(s) ? null : double.Parse(s);
+
     public void VerifyVersion(params string[] acceptedVersions)
     {
         if (acceptedVersions is null)
