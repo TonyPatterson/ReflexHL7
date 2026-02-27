@@ -5,28 +5,28 @@ namespace ReflexHL7.Tests;
 [HL7SegmentDefinition("XXX")]
 public partial class SegmentArrayTest
 {
-    //[HL7Field(1)]
-    //public int[] IntArray { get; set; }
+    [HL7Field(1)]
+    public required int[] IntArray { get; set; }
 
-    //[HL7Field(2)]
-    //public IReadOnlyList<float> FloatReadOnlyList { get; set; }
+    [HL7Field(2)]
+    public required IReadOnlyList<float> FloatReadOnlyList { get; set; }
 
     [HL7Field(3)]
-    public string[] StringArray { get; set; }
+    public required string[] StringArray { get; set; }
 
     [HL7Field(4)]
-    public string?[] NullableStringArray { get; set; }
+    public required string?[] NullableStringArray { get; set; }
 
     [HL7Field(5)]
-    public IReadOnlyList<string> StringList { get; set; }
+    public required IReadOnlyList<string> StringList { get; set; }
 
     [HL7Field(6)]
-    public IReadOnlyList<string?> NullableStringList { get; set; }
+    public required IReadOnlyList<string?> NullableStringList { get; set; }
 }
 
 public class FieldArrayDeserialisationTests
 {
-    private SegmentArrayTest _segmentArrayTest;
+    private readonly SegmentArrayTest _segmentArrayTest;
 
     public FieldArrayDeserialisationTests()
     {
@@ -42,17 +42,17 @@ public class FieldArrayDeserialisationTests
         _segmentArrayTest = SegmentArrayTest.Read(tokeniser);
     }
 
-    //[Fact]
-    //public void IntegerArray()
-    //{
-    //    Assert.Equal([2602, 1971], _segmentArrayTest.IntArray);
-    //}
+    [Fact]
+    public void IntegerArray()
+    {
+        Assert.Equal([2602, 1971], _segmentArrayTest.IntArray);
+    }
 
-    //[Fact]
-    //public void FloatArray()
-    //{
-    //    Assert.Equal([(float)3.14, (float)1.62, (float)2.72], _segmentArrayTest.FloatReadOnlyList);
-    //}
+    [Fact]
+    public void FloatArray()
+    {
+        Assert.Equal([(float)3.14, (float)1.62, (float)2.72], _segmentArrayTest.FloatReadOnlyList);
+    }
 
     [Fact]
     public void StringArray()

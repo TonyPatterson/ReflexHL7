@@ -107,6 +107,26 @@ internal record ClassToGenerate(
                 csb.AppendLine($"{assign}tokeniser.{Characteristics.ReadSubs}().ToArray();");
                 break;
 
+            case "int[]":
+            case "System.Collections.Generic.IReadOnlyList<int>":
+                OutputReadNumericArrayCode("int");
+                break;
+
+            case "float[]":
+            case "System.Collections.Generic.IReadOnlyList<float>":
+                OutputReadNumericArrayCode("float");
+                break;
+
+            case "double[]":
+            case "System.Collections.Generic.IReadOnlyList<double>":
+                OutputReadNumericArrayCode("double");
+                break;
+
+            case "decimal[]":
+            case "System.Collections.Generic.IReadOnlyList<decimal>":
+                OutputReadNumericArrayCode("decimal");
+                break;
+
             case "int":
             case "decimal":
             case "float":
@@ -141,6 +161,9 @@ internal record ClassToGenerate(
 
         static string Capitalise(string basePropertyType) => 
             char.ToUpperInvariant(basePropertyType[0]) + basePropertyType.Substring(1);
+
+        void OutputReadNumericArrayCode(string typeName) =>
+            csb.AppendLine($"{assign}tokeniser.{Characteristics.ReadSubs}().Select(s => {typeName}.Parse(s)).ToArray();");
     }
 
     private void AddCollectionRead(CodeStringBuilder csb, PropertyToGenerate prop, string assign)

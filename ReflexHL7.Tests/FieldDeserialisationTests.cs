@@ -28,7 +28,7 @@ public partial class SegmentTest
     public float? flt2 { get; set; }
 
     [HL7Field(9)]
-    public string s1 { get; set; }
+    public required string s1 { get; set; }
 
     [HL7Field(10)]
     public string? s2 { get; set; }

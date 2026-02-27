@@ -393,14 +393,14 @@ public class HL7Tokeniser
             SkipSegment();
     }
 
-    private record struct Element(string Content, bool Exhausted)
+    private record struct Element(string? Content, bool Exhausted)
     {
-        public static implicit operator (string Content, bool Exhausted)(Element value)
+        public static implicit operator (string? Content, bool Exhausted)(Element value)
         {
             return (value.Content, value.Exhausted);
         }
 
-        public static implicit operator Element((string Content, bool Exhausted) value)
+        public static implicit operator Element((string? Content, bool Exhausted) value)
         {
             return new Element(value.Content, value.Exhausted);
         }
