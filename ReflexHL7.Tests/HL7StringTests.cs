@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ReflexHL7.Tests;
+﻿namespace ReflexHL7.Tests;
 
 public class HL7StringTests
 {

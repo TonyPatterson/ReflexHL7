@@ -101,9 +101,17 @@ be defined for:
 
 The simplest target is a string which will be loaded with the complete
 content of the source entity. It is recommended that you use nullable
-strings as the HL7 content is not usually guaranteed to be set. When
-using a string, the field content is used directly, without processing
-escapes or formatting characters.
+strings as the HL7 content is not usually guaranteed to be present. This
+will occur when a segment or field's content ends without having all
+possible values, for example a segment does not have enough pipe characters
+to express all of the fields that it could carry. When using a string, the
+field content is used directly, without processing escapes or formatting
+characters.
+
+When a field contains two double quotes, this is HL7's PresentButNull
+value. The tokeniser represents this as `HL7Tokeniser.PresentButNull`.
+This constant has a value, but the value should be ignored. The constant
+should only be used for comparisons.
 
 ### int, float, double, decimal
 

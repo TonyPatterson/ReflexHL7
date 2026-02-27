@@ -32,6 +32,8 @@ public class HL7Tokeniser
     private int _streamPosition = 0;
     private int _pushedToken = 0;
 
+    public const string PresentButNull = "\0"; // This can't occur in HL7, but allows us to distinguish between || and |""|
+
     public int StreamPosition => _streamPosition;
 
     /// <summary>
@@ -204,7 +206,7 @@ public class HL7Tokeniser
         if (_streamPosition == initialPosition + 3)
         {
             if (s == "\"\"")
-                s = null;
+                return (PresentButNull, false);
         }
 
         return (s, false);
@@ -250,7 +252,7 @@ public class HL7Tokeniser
 
             string? s = c.Content;
 
-            yield return s is null || s.Length == 0 ? null : s;
+            yield return s;
         }
 
         SkipField();
@@ -391,14 +393,14 @@ public class HL7Tokeniser
             SkipSegment();
     }
 
-    private record struct Element(string? Content, bool Exhausted)
+    private record struct Element(string Content, bool Exhausted)
     {
-        public static implicit operator (string? Content, bool Exhausted)(Element value)
+        public static implicit operator (string Content, bool Exhausted)(Element value)
         {
             return (value.Content, value.Exhausted);
         }
 
-        public static implicit operator Element((string? Content, bool Exhausted) value)
+        public static implicit operator Element((string Content, bool Exhausted) value)
         {
             return new Element(value.Content, value.Exhausted);
         }
